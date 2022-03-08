@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewsPurchaseMicroservices.Order.Domain\NewsPurchaseMicroservices.Order.Domain.csproj" />
+    <ProjectReference Include="..\NewsPurchaseMicroservices.Order.Insfrastructure\NewsPurchaseMicroservices.Order.Insfrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
