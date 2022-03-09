@@ -1,12 +1,15 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NewsPurchaseMicroservices.Order.Insfrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,18 @@ namespace NewsPurchaseMicroservices.Order.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            services.AddDbContext<OrderDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),configure =>
+                {
+                    configure.MigrationsAssembly("NewsPurchaseMicroservices.Order.Insfrastructure");
+                });
+            });
+
+            services.AddMediatR(typeof(NewsPurchaseMicroservices.Order.Application.Commands.CreateOrderCommand).Assembly);
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
